@@ -10,5 +10,5 @@ export class AppComponent {
   title = 'angular-froms';
   topics = ['Angular', 'React', 'Vue'];
   
-  userModel = new User('Amoos', 'inf@now.me', '48787', '', 'morning' , true ) // <-- Binding Data to a Model
+  userModel = new User('Amoos', 'inf@now.me', '48787', '', 'morning' , true ) // <-- 
 }
