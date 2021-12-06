@@ -6,9 +6,13 @@
   
   {{ userForm.value | json }}
 
+  <hr>
+
+  {{ userModel | json }}
+
   <div class="form-group">
     <label>Name</label>
-    <input type="text" class="form-control" ngModel
+    <input type="text" class="form-control" [ngModel]="userModel.name"
             name="username"
     />
   </div>
@@ -17,25 +21,20 @@
     <label>Email</label>
     <input type="email"
           name="email"  
-          class="form-control" ngModel />
+        class="form-control" [ngModel]="userModel.email" />
   </div>
 
   <div class="form-group">
     <label>Phone</label>
     <input type="tel"
             name="phone"  
-            class="form-control" ngModel />
-  </div>
-
-  <div class="form-group">
-    <label>Phone</label>
-    <input type="tel" class="form-control" ngModel />
+            class="form-control" [ngModel]="userModel.phone" />
   </div>
 
   
   <div class="form-group">
     <label>Topic</label>
-    <select class="form-control" ngModel
+    <select class="form-control" [ngModel]="userModel.topic"
             name="topic"  >
       <option value="1">1</option>
       <option value="2">2</option>
@@ -45,13 +44,13 @@
     
   <div class="form-group">
     <label>Time Preference</label>
-    <input type="radio" class="form-control" name="timePreference" ngModel /> Morning <br>
-    <input type="radio" class="form-control" name="timePreference" ngModel /> Evening
+    <input type="radio" class="form-control" name="timePreference" [ngModel]="userModel.timePreference" /> Morning <br>
+    <input type="radio" class="form-control" name="timePreference" [ngModel]="userModel.timePreference"  /> Evening
   </div>
 
   <div class="form-group">
     <label>Time Preference</label>
-    <input type="checkbox" class="form-control" name="agree" ngModel /> Agree
+    <input type="checkbox" class="form-control" name="agree" [ngModel]="userModel.agree"  /> Agree
   </div>
 
 
