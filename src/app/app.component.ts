@@ -11,4 +11,19 @@ export class AppComponent {
   topics = ['Angular', 'React', 'Vue'];
   
   userModel = new User('Amoos', 'inf@now.me', '48787', '', 'morning' , true ) // <-- 
+
+
+  
+  topicHasError: boolean = true;
+  
+  validTopic( _value: any ) {
+    console.log( "_value", _value )
+    if( _value === 'default' ) {
+      this.topicHasError = true;
+    } else {
+      this.topicHasError = false;
+    }
+  }
+  
+
 }

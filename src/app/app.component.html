@@ -49,11 +49,18 @@
   
   <div class="form-group">
     <label>Topic</label>
-    <select class="form-control" [(ngModel)]="userModel.topic"
-            name="topic"  >
-      <option value="1">1</option>
-      <option value="2">2</option>
+    <select #topic="ngModel"
+            (change)="validTopic(topic.value)"
+            [class.is-invalid]="topicHasError || topic.touched"
+            class="form-control" [(ngModel)]="userModel.topic"
+            name="topic"
+            required
+            >
+      <option value="default">Select Topic</option>
+      <option value="angular">Angular</option>
+      <option value="react">React</option>
     </select>
+    <small class="text-danger" [class.d-none]="!topicHasError">Select Topic</small>
   </div>
 
     

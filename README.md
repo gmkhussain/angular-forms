@@ -116,3 +116,65 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
     </div>
   </div>
 ```
+
+
+
+
+
+
+
+
+
+## Select control validation
+
+#### app.component.html
+```html
+  <div class="form-group">
+    <label>Topic</label>
+    <select #topic="ngModel"
+            (change)="validTopic(topic.value)"
+            [class.is-invalid]="topicHasError || topic.touched"
+            class="form-control" [(ngModel)]="userModel.topic"
+            name="topic"
+            required
+            >
+      <option value="default">Select Topic</option>
+      <option value="angular">Angular</option>
+      <option value="react">React</option>
+    </select>
+    <small class="text-danger" [class.d-none]="!topicHasError">Select Topic</small>
+  </div>
+```
+
+
+#### app.component.ts
+```js
+import { Component } from '@angular/core';
+import { User } from './user';
+
+@Component({
+  selector: 'app-root',
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.scss']
+})
+export class AppComponent {
+  title = 'angular-froms';
+  topics = ['Angular', 'React', 'Vue'];
+  
+  userModel = new User('Amoos', 'inf@now.me', '48787', '', 'morning' , true ) // <-- 
+
+
+  
+  topicHasError: boolean = true; //<-- NEW
+ 
+  validTopic( _value: any ) {
+    console.log( "_value", _value )
+    if( _value === 'default' ) {
+      this.topicHasError = true;
+    } else {
+      this.topicHasError = false;
+    }
+  }
+
+}
+```
