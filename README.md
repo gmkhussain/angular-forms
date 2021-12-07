@@ -25,3 +25,62 @@ Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To u
 ## Further help
 
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+
+
+
+
+
+
+
+
+
+
+
+
+## Tracking state and validity
+
+| State    |            |      |
+|----------|------------|------|
+| is valid |  valid | invalid |
+| has change |  dirty | pristine |
+| has been visited |  touched | untouched |
+
+
+```js
+<input type="text" #name class="form-control" [(ngModel)]="userModel.name"
+        name="username"
+    />
+    {{ name.className }} //<-- touched
+```
+
+```js
+<input type="text" #name="ngModel" class="form-control" [(ngModel)]="userModel.name"
+        name="username"
+    />
+    {{ name.touched }} //<-- false
+```
+
+
+
+
+
+
+
+
+## Validation with Visual Feedback
+
+#### True / False
+```js
+[ngClass]="userModel.agree ? 'is-invalid' : 'is-valid'"
+```
+
+```js
+<input  type="text"
+        #name="ngModel" //<-- NEW
+        [class.is-invalid]="name.invalid && name.touched" //<-- NEW
+        class="form-control"
+        [(ngModel)]="userModel.name"
+        name="name"
+        required        
+        />
+```
