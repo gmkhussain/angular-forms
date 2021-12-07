@@ -51,7 +51,7 @@
     <label>Topic</label>
     <select #topic="ngModel"
             (change)="validTopic(topic.value)"
-            [class.is-invalid]="topicHasError || topic.touched"
+            [class.is-invalid]="topicHasError"
             class="form-control" [(ngModel)]="userModel.topic"
             name="topic"
             required
@@ -95,7 +95,9 @@
 
 
   <div class="form-group">
-    <button type="submit">Send</button>
+    <button
+        [disabled]="userForm.invalid || topicHasError"
+        type="submit">Send</button>
   </div>
 
 </form>

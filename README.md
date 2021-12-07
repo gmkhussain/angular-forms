@@ -178,3 +178,21 @@ export class AppComponent {
 
 }
 ```
+
+
+
+
+
+
+
+
+
+## Form validation
+- Button keep disabled until all inputs valid
+
+```js
+ <button
+        [disabled]="userForm.invalid || topicHasError"
+        type="submit">Send</button>
+```
+
