@@ -84,3 +84,35 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
         required        
         />
 ```
+
+
+
+
+
+
+
+
+
+
+
+
+
+## Displaying Error Messages
+
+```html
+  <div class="form-group">
+    <label>Phone</label>
+    <input  #phone="ngModel"
+            [class.is-invalid]="phone.invalid"
+            type="tel"
+            name="phone"  
+            pattern="^\d{10}$"
+            class="form-control" [(ngModel)]="userModel.phone"
+            required />
+
+    <div *ngIf="phone.errors && ( phone.invalid || phone.touched ) ">
+      <small *ngIf="phone.errors?.['required']" >Phone number required</small>
+      <small *ngIf="phone.errors?.['pattern']" >Min 10 digits required</small>
+    </div>
+  </div>
+```

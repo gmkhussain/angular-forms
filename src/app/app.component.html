@@ -19,6 +19,7 @@
             name="name"
             required        
         />
+    <small [class.d-none]="name.valid" >Required</small>
     
   </div>
 
@@ -31,9 +32,18 @@
 
   <div class="form-group">
     <label>Phone</label>
-    <input type="tel"
+    <input  #phone="ngModel"
+            [class.is-invalid]="phone.invalid && phone.touched"
+            required
+            type="tel"
             name="phone"  
+            pattern="^\d{10}$"
             class="form-control" [(ngModel)]="userModel.phone" />
+
+    <div *ngIf="phone.errors && ( phone.invalid || phone.touched ) ">
+      <small *ngIf="phone.errors?.['required']" >Phone number required</small>
+      <small *ngIf="phone.errors?.['pattern']" >Min 10 digits required</small>
+    </div>
   </div>
 
   
