@@ -196,3 +196,147 @@ export class AppComponent {
         type="submit">Send</button>
 ```
 
+
+
+
+
+
+
+
+
+
+
+
+## Submitting form data
+
+#### app.component.html
+
+- Add ```(submit)="onsubmit()"``` on form tag
+
+```html
+<form #userForm="ngForm" (submit)="onsubmit()">
+  <h4>form</h4>
+//...
+```
+
+
+
+
+
+
+
+
+
+- Create Enrollment service
+- ```ng g s enrollment```
+
+
+#### enrollment.services.ts
+```js
+import { Injectable } from '@angular/core';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http'
+import { User } from './user'
+
+@Injectable({
+  providedIn: 'root'
+})
+
+export class EnrollmentService {
+
+  constructor(
+    private _http: HttpClient
+  ) { }
+
+  _url = ''
+
+  enroll( user: User ) {
+    return this._http.post<any>(this._url, user)    
+  }
+
+}
+```
+
+
+
+
+
+
+
+
+
+
+#### app.components.ts
+```js
+import { Component } from '@angular/core';
+import { User } from './user';
+import { EnrollmentService } from './enrollment.service'; // <-- NEW
+
+@Component({
+  selector: 'app-root',
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.scss']
+})
+
+export class AppComponent {
+  title = 'angular-froms';
+  topics = ['Angular', 'React', 'Vue'];
+  
+  userModel = new User('Amoos', 'inf@now.me', '0123456789', '', 'morning' , true ) // <-- 
+
+  topicHasError: boolean = true;
+
+  constructor(
+    private _enrollmentService: EnrollmentService // <-- NEW
+  ) {}
+  
+  validTopic( _value: any ) {
+    console.log( "_value", _value )
+    if( _value === 'default' ) {
+      this.topicHasError = true;
+    } else {
+      this.topicHasError = false;
+    }
+  }
+  
+
+  onsubmit() { // <-- NEW
+    this._enrollmentService.enroll( this.userModel ).subscribe(
+      res => console.log("Res", res ),
+      err => console.log("Err", err )
+    )
+  }
+
+}
+```
+
+
+
+
+
+
+
+#### app.module.ts
+```js
+import { NgModule } from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
+import { FormsModule } from '@angular/forms'; 
+import { HttpClientModule } from '@angular/common/http' // <-- NEW
+import { AppRoutingModule } from './app-routing.module';
+import { AppComponent } from './app.component';
+
+
+@NgModule({
+  declarations: [
+    AppComponent
+  ],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    FormsModule,
+    HttpClientModule // <-- NEW
+  ],
+  providers: [],
+  bootstrap: [AppComponent]
+})
+export class AppModule { }
+```

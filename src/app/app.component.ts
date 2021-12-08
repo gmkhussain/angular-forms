@@ -1,20 +1,24 @@
 import { Component } from '@angular/core';
 import { User } from './user';
+import { EnrollmentService } from './enrollment.service';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
+
 export class AppComponent {
   title = 'angular-froms';
   topics = ['Angular', 'React', 'Vue'];
   
-  userModel = new User('Amoos', 'inf@now.me', '48787', '', 'morning' , true ) // <-- 
+  userModel = new User('Amoos', 'inf@now.me', '0123456789', '', 'morning' , true ) // <-- 
 
-
-  
   topicHasError: boolean = true;
+
+  constructor(
+    private _enrollmentService: EnrollmentService
+  ) {}
   
   validTopic( _value: any ) {
     console.log( "_value", _value )
@@ -25,5 +29,12 @@ export class AppComponent {
     }
   }
   
+
+  onsubmit() {
+    this._enrollmentService.enroll( this.userModel ).subscribe(
+      res => console.log("Res", res ),
+      err => console.log("Err", err )
+    )
+  }
 
 }
