@@ -355,4 +355,221 @@ export class AppModule { }
 
 
 
-## 
+## Express Server to Receive Form Data
+- Read ```SERVER.MD```
+
+
+#### enrollment.js
+```js
+//...
+  _url = 'http://localhost:3000/enroll'
+//...
+```
+
+- Check ```console```
+```js
+// msg here
+```
+
+- Check ```terminal```
+```js
+// Data here
+```
+
+
+
+
+
+
+
+
+##### app.component.html
+
+```html
+<div *ngIf="submitted">
+  <h2>Data has been sent!</h2>
+</div>
+<form
+  *ngIf="!submitted"
+  #userForm="ngForm" (submit)="onsubmit()"
+<!--...-->
+```
+
+
+
+
+
+
+
+
+
+#### app.component.ts
+```js
+  //...
+  
+  submitted: boolean = false;
+
+  //...
+
+  onsubmit() {
+    this._enrollmentService.enroll( this.userModel ).subscribe(
+      res => {
+        console.log("Res", res )
+        this.submitted = true; // <-- NEW
+      },
+      err => console.log("Err", err )
+    )
+  }
+ 
+ //..
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+## Error Handling
+
+#### enrollement.js
+```js
+import { Injectable } from '@angular/core';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http'
+import { User } from './user'
+
+import { catchError } from 'rxjs/operators';  //<-- NEW
+import { throwError } from 'rxjs';  //<-- NEW
+
+@Injectable({
+  providedIn: 'root'
+})
+
+export class EnrollmentService {
+
+  constructor(
+    private _http: HttpClient
+  ) { }
+
+  _url = 'http://localhost:3000/enroll'
+
+  enroll( user: User ) {
+    return this._http.post<any>(this._url, user)
+                .pipe( catchError(this.errorHandler ) ) //<-- NEW
+  }
+
+  errorHandler( error: HttpErrorResponse ) {
+    return throwError( error );
+  }
+
+}
+```
+
+
+
+
+
+
+
+
+#### app.component.html
+```html
+<div *ngIf="errorMsg"
+    class="alert alert-danger">
+  {{errorMsg}}
+</div>
+```
+
+
+
+
+
+
+
+
+
+#### app.component.ts
+```js
+import { Component } from '@angular/core';
+import { User } from './user';
+import { EnrollmentService } from './enrollment.service';
+
+@Component({
+  selector: 'app-root',
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.scss']
+})
+
+export class AppComponent {
+  title = 'angular-froms';
+  topics = ['Angular', 'React', 'Vue'];
+  
+  userModel = new User('Amoos', 'inf@now.me', '0123456789', '', 'morning' , true ) // <-- 
+
+  topicHasError: boolean = true;
+  submitted: boolean = false;
+  errorMsg: any = '';  // <-- NEW
+
+  constructor(
+    private _enrollmentService: EnrollmentService
+  ) {}
+  
+  validTopic( _value: any ) {
+    console.log( "_value", _value )
+    if( _value === 'default' ) {
+      this.topicHasError = true;
+    } else {
+      this.topicHasError = false;
+    }
+  }
+  
+
+  onsubmit() {
+    this._enrollmentService.enroll( this.userModel ).subscribe(
+      res => {
+        console.log("Res", res )
+        this.submitted = true;
+      },
+      err => this.errorMsg = err.statusText  // <-- NEW
+    )
+  }
+
+}
+```
+
+
+
+#### server/server/js
+```js
+const express = require('express');
+const bodyParser = require('body-parser');
+const cors = require('cors')
+
+const PORT = 3000;
+const app = express();
+app.use(bodyParser.json());
+app.use(cors())
+
+app.get('/', function(req, res) {
+	res.send('Hello from server')
+})
+
+app.post('/enroll', function(req, res) {
+  console.log(req.body)
+  //res.status(200).send({"message": "Data received"});
+  res.status(401).send({"message": "Dummy Error"}); // To test Error only
+})
+
+app.listen(PORT, function(){
+  console.log("Server running on localhost:" + PORT);
+});
+```
+
+

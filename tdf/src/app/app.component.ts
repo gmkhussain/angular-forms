@@ -15,6 +15,8 @@ export class AppComponent {
   userModel = new User('Amoos', 'inf@now.me', '0123456789', '', 'morning' , true ) // <-- 
 
   topicHasError: boolean = true;
+  submitted: boolean = false;
+  errorMsg: any = '';
 
   constructor(
     private _enrollmentService: EnrollmentService
@@ -32,8 +34,11 @@ export class AppComponent {
 
   onsubmit() {
     this._enrollmentService.enroll( this.userModel ).subscribe(
-      res => console.log("Res", res ),
-      err => console.log("Err", err )
+      res => {
+        console.log("Res", res )
+        this.submitted = true;
+      },
+      err => this.errorMsg = err.statusText
     )
   }
 

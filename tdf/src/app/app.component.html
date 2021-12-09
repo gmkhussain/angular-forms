@@ -1,6 +1,18 @@
 
+<div *ngIf="submitted">
+  <h2>Data has been sent!</h2>
+</div>
 
-<form #userForm="ngForm" (submit)="onsubmit()">
+<div *ngIf="errorMsg"
+    class="alert alert-danger">
+  {{errorMsg}}
+</div>
+
+<form
+  *ngIf="!submitted"
+  #userForm="ngForm" (submit)="onsubmit()"
+    >
+
   <h4>form</h4>
   <p>Binding Data with ngForm</p>
   
