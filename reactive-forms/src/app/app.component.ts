@@ -29,15 +29,18 @@ export class AppComponent {
 
 
   loadApiData() {
-    this.registrationForm.setValue({
+    this.registrationForm.patchValue({
       userName: 'New Amoos',
       password: '***',
       confrimPassword: '***',
-      address: {
-        city: 'New York City',
-        state: 'New York',
-        zipcode: '1001'
-      }
+      /*
+       Load few values, without address fields
+       */
+      // address: {
+      //   city: 'New York City',
+      //   state: 'New York',
+      //   zipcode: '1001'
+      // }
     })
   }
   

@@ -267,11 +267,8 @@ export class AppComponent {
 
 
 
-
 #### app.component.ts
 ```js
-//...
-
   loadApiData() {
     this.registrationForm.setValue({
       userName: 'New Amoos',
@@ -284,6 +281,33 @@ export class AppComponent {
       }
     })
   }
+```
 
+
+
+
+
+### Patch Values
+- If we want update only specific inputs
+
+#### app.component.ts
+```js
+//...
+
+    loadApiData() {
+    this.registrationForm.patchValue({
+      userName: 'New Amoos',
+      password: '***',
+      confrimPassword: '***',
+      /*
+       Load few values, without address fields
+       */
+      // address: {
+      //   city: 'New York City',
+      //   state: 'New York',
+      //   zipcode: '1001'
+      // }
+    })
+  }
 //...
 ```
