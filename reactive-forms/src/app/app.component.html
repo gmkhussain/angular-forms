@@ -25,6 +25,34 @@
           >
   </div>
 
+  
+
+    <p>// Note: `formGroupName="address"`, not [formGroup]="address"</p>
+    
+    <div formGroupName="address">
+        <div class="form-group">
+          <label>City</label>
+          <input type="text"
+                formControlName="city"
+                class="form-control"
+                >
+        </div>
+        <div class="form-group">
+          <label>State</label>
+          <input type="text"
+                formControlName="state"
+                class="form-control"
+                >
+        </div>
+        <div class="form-group">
+          <label>Zipcode</label>
+          <input type="text"
+                formControlName="zipcode"
+                class="form-control"
+                >
+        </div>
+    </div>
+
   <button class="btn btn-primary">Sign Up</button>
 
   
