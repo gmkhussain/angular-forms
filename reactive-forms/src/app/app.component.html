@@ -28,7 +28,7 @@
   
 
     <p>// Note: `formGroupName="address"`, not [formGroup]="address"</p>
-    
+
     <div formGroupName="address">
         <div class="form-group">
           <label>City</label>
@@ -54,6 +54,11 @@
     </div>
 
   <button class="btn btn-primary">Sign Up</button>
+
+  <button class="btn btn-default"
+        (click)="loadApiData()">
+    Load Data
+  </button>
 
   
  {{ registrationForm.value | json }}

@@ -234,3 +234,56 @@ export class AppComponent {
   
 }
 ```
+
+
+
+
+
+
+
+
+
+
+
+
+
+## Managing Control Values
+
+### Set Values
+
+#### app.component.html
+```html
+//...
+  <button class="btn btn-default"
+        (click)="loadApiData()">
+    Load Data
+  </button>
+  
+ {{ registrationForm.value | json }}
+  //..
+```
+
+
+
+
+
+
+#### app.component.ts
+```js
+//...
+
+  loadApiData() {
+    this.registrationForm.setValue({
+      userName: 'New Amoos',
+      password: '***',
+      confrimPassword: '***',
+      address: {
+        city: 'New York City',
+        state: 'New York',
+        zipcode: '1001'
+      }
+    })
+  }
+
+//...
+```

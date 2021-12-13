@@ -25,5 +25,20 @@ export class AppComponent {
   constructor(
     
   ) {}
+
+
+
+  loadApiData() {
+    this.registrationForm.setValue({
+      userName: 'New Amoos',
+      password: '***',
+      confrimPassword: '***',
+      address: {
+        city: 'New York City',
+        state: 'New York',
+        zipcode: '1001'
+      }
+    })
+  }
   
 }
